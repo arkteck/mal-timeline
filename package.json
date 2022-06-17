@@ -1,0 +1,44 @@
+{
+  "name": "mal-timeline",
+  "version": "1.0.0",
+  "description": "React App that generates a timeline based on the anime list of a MyAnimeList user",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkteck/mal-timeline.git"
+  },
+  "keywords": [
+    "anime",
+    "myanimelist",
+    "timeline",
+    "chart",
+    "graph"
+  ],
+  "author": "Wei-Teck Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arkteck/mal-timeline/issues"
+  },
+  "homepage": "https://github.com/arkteck/mal-timeline#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bluebird": "^3.7.2",
+    "chart.js": "^3.8.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
+}
