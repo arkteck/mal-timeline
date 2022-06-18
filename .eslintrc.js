@@ -18,5 +18,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-console': 'off',
+    'react/prop-types': 'off',
   },
 };

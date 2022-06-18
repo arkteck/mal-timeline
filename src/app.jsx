@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TimelineChart from './timelineChart.jsx';
+import TimelineChart from './timelineChart';
 
 function App() {
   const [username, setUsername] = useState('arkteck');

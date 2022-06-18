@@ -29,7 +29,8 @@ const options = {
     zoom: {
       limits: {
         x: { min: 'original', max: 'original' },
-        y: { min: 'original', max: 'original' } },
+        y: { min: 'original', max: 'original' },
+      },
       pan: { enabled: true, mode: 'xy', threshold: 10 },
       zoom: {
         mode: 'xy',
