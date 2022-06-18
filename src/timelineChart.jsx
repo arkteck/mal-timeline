@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import Zoom from 'chartjs-plugin-zoom';
 
 const options = {
   indexAxis: 'y',
@@ -25,6 +26,18 @@ const options = {
       display: true,
       text: 'Chart.js Horizontal Bar Chart',
     },
+    zoom: {
+      limits: {
+        x: { min: 'original', max: 'original' },
+        y: { min: 'original', max: 'original' } },
+      pan: { enabled: true, mode: 'xy', threshold: 10 },
+      zoom: {
+        mode: 'xy',
+        wheel: {
+          enabled: true,
+        },
+      },
+    },
   },
   scales: {
   },
@@ -40,6 +53,7 @@ function AnimeEntry({ mal, drawChart }) {
     Title,
     Tooltip,
     Legend,
+    Zoom,
   );
 
   useEffect(() => {
@@ -52,7 +66,7 @@ function AnimeEntry({ mal, drawChart }) {
       if (startDate < minDate) {
         minDate = startDate;
       }
-      data2.push([startDate, Date.parse(anime.node.end_date)]);
+      data2.push([startDate, anime.node.end_date ? Date.parse(anime.node.end_date) : Date.now()]);
     });
     options.scales = {
       x: {
@@ -72,16 +86,18 @@ function AnimeEntry({ mal, drawChart }) {
     });
   }, [mal]);
 
-  return (<>
-    <div>
-      {Object.keys(data).length}
-    </div>
-    {drawChart ? <Bar
-      data={data}
-      options={options}
-    /> : null}
-  </>
-
+  return (
+    <>
+      <div>
+        {Object.keys(data).length}
+      </div>
+      {drawChart ? (
+        <Bar
+          data={data}
+          options={options}
+        />
+      ) : null}
+    </>
   );
 }
 

@@ -28,9 +28,8 @@ app.get('/username/:username', (req, res) => {
       'X-MAL-CLIENT-ID': process.env.malClientId,
     },
     params: {
-      fields: 'list_status,start_date,end_date',
-      limit: 40,
-      status: 'completed',
+      fields: 'list_status,start_date,end_date,media_type',
+      limit: 1000,
     },
   })
     .then((response) => {

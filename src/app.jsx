@@ -18,8 +18,9 @@ function App() {
           console.log('BAD REQUEST');
           setDrawChart(false);
         } else {
-          response.data.sort((a, b) => (Date.parse(a.node.start_date) - Date.parse(b.node.start_date)));
-          setMal(response.data);
+          const malData = response.data.filter((a) => (a.node.media_type === 'tv'));
+          malData.sort((a, b) => (Date.parse(a.node.start_date) - Date.parse(b.node.start_date)));
+          setMal(malData);
           setDrawChart(true);
         }
       })
