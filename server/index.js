@@ -29,7 +29,7 @@ app.get('/username/:username', (req, res) => {
     },
     params: {
       fields: 'list_status,start_date,end_date',
-      limit: 10,
+      limit: 40,
       status: 'completed',
     },
   })

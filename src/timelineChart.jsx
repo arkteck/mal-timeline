@@ -10,6 +10,26 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
+const options = {
+  indexAxis: 'y',
+  elements: {
+    bar: {
+      borderWidth: 2,
+    },
+  },
+  plugins: {
+    legend: {
+      position: 'right',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Horizontal Bar Chart',
+    },
+  },
+  scales: {
+  },
+};
+
 function AnimeEntry({ mal, drawChart }) {
   const [data, setData] = useState({});
 
@@ -22,37 +42,29 @@ function AnimeEntry({ mal, drawChart }) {
     Legend,
   );
 
-  const options = {
-    indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
-    plugins: {
-      legend: {
-        position: 'right',
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Horizontal Bar Chart',
-      },
-    },
-  };
-
   useEffect(() => {
     const labels = [];
+    const data2 = [];
+    let minDate = Date.now();
     mal.forEach((anime) => {
       labels.push(anime.node.title);
+      const startDate = Date.parse(anime.node.start_date);
+      if (startDate < minDate) {
+        minDate = startDate;
+      }
+      data2.push([startDate, Date.parse(anime.node.end_date)]);
     });
+    options.scales = {
+      x: {
+        min: minDate * 0.99,
+      },
+    };
     setData({
       labels,
       datasets: [
         {
           label: 'anime',
-          data: mal.map((anime) => (
-            Math.floor(Math.random() * 1000)
-          )),
+          data: data2,
           backgroundColor: 'rgba(255, 99, 132, .8)',
           borderColor: 'rgb(255, 99, 132)',
         },
@@ -67,8 +79,6 @@ function AnimeEntry({ mal, drawChart }) {
     {drawChart ? <Bar
       data={data}
       options={options}
-      width={100}
-      height={50}
     /> : null}
   </>
 

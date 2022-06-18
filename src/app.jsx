@@ -3,7 +3,7 @@ import axios from 'axios';
 import TimelineChart from './timelineChart.jsx';
 
 function App() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('arkteck');
   const [mal, setMal] = useState([]);
   const [drawChart, setDrawChart] = useState(false);
 
@@ -14,10 +14,11 @@ function App() {
     })
       .then((response) => {
         console.log(response.data);
-        if (response.data.status === 403) {
+        if (response.data.status >= 400) {
           console.log('BAD REQUEST');
           setDrawChart(false);
         } else {
+          response.data.sort((a, b) => (Date.parse(a.node.start_date) - Date.parse(b.node.start_date)));
           setMal(response.data);
           setDrawChart(true);
         }
