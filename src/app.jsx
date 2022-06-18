@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AnimeEntry from './animeEntry.jsx';
+import TimelineChart from './timelineChart.jsx';
 
 function App() {
   const [username, setUsername] = useState('');
   const [mal, setMal] = useState([]);
+  const [drawChart, setDrawChart] = useState(false);
 
   const retrieveMal = () => {
     axios({
@@ -12,7 +13,14 @@ function App() {
       method: 'get',
     })
       .then((response) => {
-        setMal(response.data);
+        console.log(response.data);
+        if (response.data.status === 403) {
+          console.log('BAD REQUEST');
+          setDrawChart(false);
+        } else {
+          setMal(response.data);
+          setDrawChart(true);
+        }
       })
       .catch((err) => {
         console.log('retrieveMal error', err);
@@ -36,12 +44,7 @@ function App() {
         Click!
       </button>
       <br />
-      {mal.map((data) => (
-        <AnimeEntry
-          key={data.node.id}
-          data={data}
-        />
-      ))}
+      <TimelineChart mal={mal} drawChart={drawChart} />
     </>
   );
 }
