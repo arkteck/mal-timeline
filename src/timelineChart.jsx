@@ -7,9 +7,11 @@ import {
   Title,
   Tooltip,
   Legend,
+  TimeScale,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import Zoom from 'chartjs-plugin-zoom';
+import 'chartjs-adapter-date-fns';
 
 const options = {
   indexAxis: 'y',
@@ -55,6 +57,7 @@ function AnimeEntry({ mal, drawChart }) {
     Tooltip,
     Legend,
     Zoom,
+    TimeScale,
   );
 
   useEffect(() => {
@@ -63,15 +66,17 @@ function AnimeEntry({ mal, drawChart }) {
     let minDate = Date.now();
     mal.forEach((anime) => {
       labels.push(anime.node.title);
-      const startDate = Date.parse(anime.node.start_date);
+      const startDate = new Date(anime.node.start_date);
       if (startDate < minDate) {
         minDate = startDate;
       }
-      data2.push([startDate, anime.node.end_date ? Date.parse(anime.node.end_date) : Date.now()]);
+      data2.push([anime.node.start_date, anime.node.end_date ? anime.node.end_date : new Date()]);
     });
     options.scales = {
       x: {
-        min: minDate * 0.99,
+        type: 'time',
+        min: minDate,
+        max: new Date(),
       },
     };
     setData({
@@ -80,7 +85,7 @@ function AnimeEntry({ mal, drawChart }) {
         {
           label: 'anime',
           data: data2,
-          backgroundColor: 'rgba(255, 99, 132, .8)',
+          backgroundColor: 'rgba(255, 99, 132, 1)',
           borderColor: 'rgb(255, 99, 132)',
         },
       ],

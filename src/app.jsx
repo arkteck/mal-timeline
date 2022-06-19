@@ -18,7 +18,7 @@ function App() {
           console.log('BAD REQUEST');
           setDrawChart(false);
         } else {
-          const malData = response.data.filter((a) => (a.node.media_type === 'tv'));
+          const malData = response.data.filter((a) => (a.node.media_type === 'tv' && a.node.start_date));
           malData.sort((a, b) => (Date.parse(a.node.start_date) - Date.parse(b.node.start_date)));
           setMal(malData);
           setDrawChart(true);
