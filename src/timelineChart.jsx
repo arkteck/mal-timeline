@@ -55,7 +55,7 @@ const options = {
 const today = new Date();
 const todayString = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate()}`;
 
-function AnimeEntry({ mal, drawChart }) {
+function TimelineChart({ mal, drawChart }) {
   const [data, setData] = useState({});
 
   ChartJS.register(
@@ -121,4 +121,4 @@ function AnimeEntry({ mal, drawChart }) {
   );
 }
 
-export default AnimeEntry;
+export default TimelineChart;

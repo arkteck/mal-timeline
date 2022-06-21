@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TimelineChart from './timelineChart';
+import VictoryTimeline from './victoryTimeline';
 
 function App() {
   const [username, setUsername] = useState('arkteck');
@@ -46,7 +47,10 @@ function App() {
         Click!
       </button>
       <br />
-      <TimelineChart mal={mal} drawChart={drawChart} />
+      {/* <TimelineChart mal={mal} drawChart={drawChart} /> */}
+      <div style={{height: '800px', width: '1200px' }}>
+        <VictoryTimeline mal={mal} drawChart={drawChart} />
+      </div>
     </>
   );
 }
