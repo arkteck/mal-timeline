@@ -41,10 +41,19 @@ const options = {
         },
       },
     },
+    tooltip: {
+      enabled: true,
+      callbacks: {
+        label: ({ raw }) => (`${raw[0]} - ${raw[1]}`),
+      },
+    },
   },
   scales: {
   },
 };
+
+const today = new Date();
+const todayString = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate()}`;
 
 function AnimeEntry({ mal, drawChart }) {
   const [data, setData] = useState({});
@@ -64,19 +73,24 @@ function AnimeEntry({ mal, drawChart }) {
     const labels = [];
     const data2 = [];
     let minDate = Date.now();
+    let maxDate = Date.now();
     mal.forEach((anime) => {
       labels.push(anime.node.title);
       const startDate = new Date(anime.node.start_date);
+      const endDate = anime.node.end_date ? new Date(anime.node.end_date) : Date.now();
       if (startDate < minDate) {
         minDate = startDate;
       }
-      data2.push([anime.node.start_date, anime.node.end_date ? anime.node.end_date : new Date()]);
+      if (endDate > maxDate) {
+        maxDate = endDate;
+      }
+      data2.push([anime.node.start_date, anime.node.end_date ? anime.node.end_date : todayString]);
     });
     options.scales = {
       x: {
         type: 'time',
         min: minDate,
-        max: new Date(),
+        max: maxDate,
       },
     };
     setData({
